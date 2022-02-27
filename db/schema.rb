@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_27_083832) do
+ActiveRecord::Schema.define(version: 2022_02_27_091114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,21 +25,21 @@ ActiveRecord::Schema.define(version: 2022_02_27_083832) do
   create_table "labels", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id", null: false
-    t.bigint "task_id", null: false
     t.string "name"
-    t.index ["task_id"], name: "index_labels_on_task_id"
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_labels_on_user_id"
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.string "name"
-    t.text "detail"
-    t.string "priority"
+    t.string "name", null: false
+    t.text "detail", null: false
+    t.string "priority", default: "0", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.date "deadline"
     t.integer "status"
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -48,9 +48,9 @@ ActiveRecord::Schema.define(version: 2022_02_27_083832) do
     t.string "password"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "admin"
+    t.boolean "admin", default: false, null: false
   end
 
-  add_foreign_key "labels", "tasks"
   add_foreign_key "labels", "users"
+  add_foreign_key "tasks", "users"
 end
