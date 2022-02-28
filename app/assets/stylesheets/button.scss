@@ -1,0 +1,61 @@
+.button_header{
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  margin: 20px 10px;
+  background: transparent; 
+  border-radius: 0.25rem;
+  border: 0.5px solid transparent;
+  color: white;
+  font-size: 1rem;
+  line-height: 20px;
+  text-align: center;
+  padding: 0.35rem 0.5rem;
+}
+.button_header:hover {
+  background-color: white;  
+  color: #34A853;
+  border: 0.5px solid #34A853;
+} 
+
+.button{
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  margin: 10px 10px;
+  background: transparent; 
+  border-radius: 0.25rem;
+  border: 0.5px solid gray;
+  color: gray;
+  font-size: 1rem;
+  line-height: 20px;
+  text-align: center;
+  padding: 0.35rem 0.5rem;
+}
+.button:hover {
+  background-color: white;  
+  color: #34A853;
+  border: 0.5px solid #34A853;
+} 
+
+.button_link{
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  margin: 7px auto;
+  background: transparent; 
+  border-radius: 0.25rem;
+  border: 0.5px solid #34A853;
+  color: #34A853;
+  font-size: 1rem;
+  line-height: 20px;
+  font-weight: bold;
+  text-align: center;
+  padding: 0.35rem 0.5rem;
+}
+.button_link:hover {
+  background-color: #34A853;  
+  color: white;
+  border: 1px solid #34A853;
+  text-decoration: none; 
+} 

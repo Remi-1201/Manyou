@@ -1,0 +1,26 @@
+.table_frame{
+  table-layout: fixed;
+  word-break: break-all;
+  word-wrap: break-all;
+  padding-bottom: 20px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+table {
+  background-color: white;
+  display: table;
+  margin: 0 auto;
+  border: 0px;
+  max-width: 70%;
+  text-align: left;
+  font-size: medium;
+}
+
+.th_name {
+  font-weight: medium;
+}
+
+.th_detail {
+  font-weight: lighter;
+}

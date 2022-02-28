@@ -1,0 +1,53 @@
+header {
+  width: 100%;
+  height: 70px;
+  background: #34A853; 
+  position: relative;        
+}
+.left{
+  float: left;
+  margin-left: 5px;
+}
+.b-right{
+  float: right;
+}
+.right{
+  float: left;
+}
+
+header ul {
+  margin: 0 10px;
+  list-style: none;
+}
+
+header ul a {
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+}  
+header li {
+  float: left;
+  width: auto;
+}  
+header ul:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+footer {
+  width: 100%;
+  background: #34A853; 
+  padding: 15px 0 5px 0;
+  color: white;
+  margin: 0 auto;
+  font-size: 12px;
+  position: fixed;
+  bottom: 0;
+}  
+li {
+    list-style:none;
+}
+ul {
+    padding:0;
+}

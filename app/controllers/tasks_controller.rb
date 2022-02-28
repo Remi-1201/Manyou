@@ -1,16 +1,16 @@
 class TasksController < ApplicationController
   before_action :set_task, only:  %i[ show edit update destroy ]
-  before_action :authenticate_user
+  # before_action :authenticate_user
 
-  def authenticate_user
-    @current_user = User.find_by(id: session[:user_id])
-    if @current_user.nil?
-      redirect_to new_session_path
-    end
-  end
+  # def authenticate_user
+  #   @current_user = User.find_by(id: session[:user_id])
+  #   if @current_user.nil?
+  #     redirect_to new_session_path
+  #   end
+  # end
 
   def index
-    @task = Task.all.order(created_at: :desc)
+    @tasks = Task.all.order(created_at: :desc)
   end
 
   def new
@@ -18,23 +18,20 @@ class TasksController < ApplicationController
       @task= Task.new(task_params)
     else
       @task= Task.new
-    end  end
+    end  
+  end
 
   def edit
   end
 
   def create
-    @task = current_user.tasks.build(task_params)
-    if params[:back]
-      redirect_to tasks_path
-    else
+    @task = Task.new(task_params)
       if @task.save
         redirect_to tasks_path, notice: "Task was successfully created."
       else
         render :new
       end
     end
-  end
 
   def update
     if @task.update(task_params)
@@ -46,7 +43,7 @@ class TasksController < ApplicationController
 
   def confirm
     @task= Task.new(task_params)
-    render :new if @task.invalid?
+    render :new if @task.blank?
   end
   
   def destroy
@@ -63,4 +60,3 @@ class TasksController < ApplicationController
   def set_task
     @task = Task.find(params[:id])
   end
-end
