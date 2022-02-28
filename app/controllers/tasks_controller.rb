@@ -45,6 +45,10 @@ class TasksController < ApplicationController
     @task= Task.new(task_params)
     render :new if @task.blank?
   end
+
+  def show
+    @task= Task.find(params[:id])
+  end
   
   def destroy
     @task.destroy

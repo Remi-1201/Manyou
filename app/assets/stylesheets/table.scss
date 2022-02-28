@@ -12,15 +12,21 @@ table {
   display: table;
   margin: 0 auto;
   border: 0px;
-  max-width: 70%;
-  text-align: left;
+  max-width: 100%;
+  text-align: center;
   font-size: medium;
 }
 
-.th_name {
+.th_label{
+  padding: 10px 10px;
+}
+
+.th_title {
   font-weight: medium;
+  width: 100px;
 }
 
 .th_detail {
   font-weight: lighter;
+  width: 100px;
 }
