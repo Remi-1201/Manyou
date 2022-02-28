@@ -16,7 +16,7 @@
 |name|string|
 |detail|text|
 |deadline|date|
-|status|integer|
+|status|text|
 |priority|string|
 
 ## Labelモデル
