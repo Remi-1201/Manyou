@@ -13,10 +13,12 @@ gem 'jbuilder', '~> 2.7'
 gem 'bcrypt', '~> 3.1.7'
 
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'chromedriver-helper'
+gem 'selenium-webdriver'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rspec-rails', '~> 3.8'
+  gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'rexml'
 end
@@ -29,7 +31,7 @@ group :development do
 end
 
 group :test do
-  gem 'capybara', '>= 2.15'
+  gem 'capybara'
   gem 'webdrivers'
 end
 
