@@ -3,13 +3,13 @@ FactoryBot.define do
   # 作成するテストデータの名前を「task」とします
   # （実際に存在するクラス名と一致するテストデータの名前をつければ、そのクラスのテストデータを自動で作成します）
   factory :task do
-    name { 'タイトル１' }
-    detail { 'コンテント１' }
+    name { 'test1' }
+    detail { 'test1' }
   end
   # 作成するテストデータの名前を「second_task」とします
   # （存在しないクラス名の名前をつける場合、オプションで「このクラスのテストデータにしてください」と指定します）
   factory :second_task, class: Task do
-    name { 'タイトル２' }
-    detail { 'コンテント２' }
+    name { 'test2' }
+    detail { 'test2' }
   end
 end
