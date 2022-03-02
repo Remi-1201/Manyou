@@ -42,6 +42,7 @@
 * heroku run rake db:migrate
 <br>
 2回目以降
+
 * heroku login -i
 * rails assets:precompile RAILS_ENV=production
 * git add .
