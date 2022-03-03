@@ -27,9 +27,11 @@ class TasksController < ApplicationController
   def sort
     @tasks =
       if params[:sort] == 'created_at'
-        Task.all.order(created_at: :desc)
+        Task.all.sorted
       elsif params[:sort] == 'deadline'
         Task.all.order(deadline: :asc)
+      elsif params[:sort] == 'priority'
+        Task.all.order(priority: :asc)
       end
       render :index
   end

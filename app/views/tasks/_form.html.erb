@@ -12,11 +12,11 @@
 <br>
   <div class="field">
       <p> <%= form.label :priority %> </p>
-      <p><%= form.select :priority, [['高'], ['中'], ['低']], {}, { id: "priority", class: "priority" } %></p>
+      <p><%= form.select :priority, Task.priorities.keys %></p>
   </div>  
   <div class="field">
     <p> <%= form.label :status %> </p>
-    <p><%= form.select  :status, [['未着手'], ['進行中'], ['完了']], {}, { id: "status", class: "status" }  %></p>
+    <p><%= form.select  :status, Task.statuses.keys %></p>
   </div>
   <div class="field">
       <p> <%= form.label :name %> </p>
