@@ -14,11 +14,10 @@
       <p> <%= form.label :priority %> </p>
       <p><%= form.select :priority, [['高'], ['中'], ['低']], {}, { id: "priority", class: "priority" } %></p>
   </div>  
-    <div class="field">
-      <p> <%= form.label :status %> </p>
-      <p><%= form.select :status, [['未'], ['中'], ['済']], {}, { id: "status", class: "status" } %></p>
-  </div>  
-
+  <div class="field">
+    <p> <%= form.label :status %> </p>
+    <p><%= form.select  :status, [['未着手'], ['進行中'], ['完了']], {}, { id: "status", class: "status" }  %></p>
+  </div>
   <div class="field">
       <p> <%= form.label :name %> </p>
       <p><%= form.text_field :name %> </p>
@@ -29,7 +28,11 @@
   </div> 
   <div class="field">
       <p> <%= form.label :deadline %> </p>
-      <p><%= form.date_select :deadline %> </p>
+      <p><%= form.date_select :deadline,
+        use_month_numbers: true,
+        start_year: Time.current.year,
+        end_year: Time.current.year + 10,
+        default: DateTime.now %> </p>
   </div>   
   <br>
   <div class="actions">

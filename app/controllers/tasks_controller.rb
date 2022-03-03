@@ -24,6 +24,17 @@ class TasksController < ApplicationController
   def edit
   end
 
+  def sort
+    @tasks =
+      if params[:sort] == 'created_at'
+        Task.all.order(created_at: :desc)
+      elsif params[:sort] == 'deadline'
+        Task.all.order(deadline: :asc)
+      end
+      render :index
+  end
+
+
   def create
     @task = Task.new(task_params)
       if @task.save
@@ -56,9 +67,15 @@ class TasksController < ApplicationController
     end
   end
 
-  private
+  private  
   def task_params
-    params.require(:task).permit(:name, :detail, :deadline, :status, :priority)
+    params.require(:task).permit(
+      :name, 
+      :detail, 
+      :deadline, 
+      :status, 
+      :priority
+    )
   end
 
   def set_task

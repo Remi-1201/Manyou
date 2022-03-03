@@ -6,4 +6,5 @@ class Task < ApplicationRecord
 
   validates :name, presence: true, length: {maximum: 120}
   validates :detail, presence: true, length: {maximum: 1000}
+  
 end
