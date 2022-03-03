@@ -34,6 +34,19 @@ class TasksController < ApplicationController
       render :index
   end
 
+  def search
+    @tasks =
+    if params[:search_name].blank? && params[:search_status].blank?
+      Task.all.order(created_at: :desc)
+    elsif params[:search_name].present? && params[:search_status].present?
+      Task.where('name LIKE ?', "%#{params[:search_name]}%").where(status: params[:search_status]).order(created_at: :desc)
+    elsif params[:search_name].present? && params[:search_status].blank?
+      Task.where('name LIKE ?', "%#{params[:search_name]}%").order(created_at: :desc)
+    elsif params[:search_name].blank? && params[:search_status].present?
+      Task.where(status: params[:search_status]).order(created_at: :desc)
+    end
+    render :index
+  end
 
   def create
     @task = Task.new(task_params)

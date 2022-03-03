@@ -11,32 +11,48 @@
   <table>
     <tr>
       <th class="th_label">Created at</th>
-      <th class="th_label">Title</th>
+      <th class="th_label">Priority</th>
       <th class="th_label">Status</th>
       <th class="th_label">Deadline</th>
-      <th class="th_label">Title</th>
+      <th class="th_label">Name</th>
       <th class="th_label">Detail</th>
     </tr>       
     <tr>
+
+  <div class="search_form">
+    <%= form_with(url: search_tasks_path, method: :get, local: true) do %>      
+      <%= select_tag :search_status, options_for_select([['未着手'],['進行中'],['完了']]),
+        { class: 'search_select', prompt: 'ステータス' } %>
+      <%= text_field_tag :search_name %>
+      <%= submit_tag '検索' %>
+    <% end %>
+  </div><br>
+
   <div class="sort">
     <%= form_with(url: sort_tasks_path, local: true) do |f| %>
       <%= select_tag :sort, options_for_select([["Sort by created time","created_at"],["Sort by deadline","deadline"]]), { class: 'sort_select' } %>
       <%= submit_tag "Sort" %>
     <% end %>
-  </div>
-    <% @tasks.each do |task| %>
+  </div><br>
+
+    <% if @tasks.present? %>
+      <% @tasks.each do |task| %>
         <th class="created_at"><%= task.created_at.to_s(:datetime)%></th>
-        <th class="button"><%= task.priority%></th>
-        <th class="status"><%= task.status%></th>
-        <th class="button"><%= task.deadline%></th>
-        <th class="th_title"><%= task.name%></th>
-        <th class="th_detail"><%= task.detail%></th>
+        <th class="button"><%= task.priority %></th>
+        <th class="status"><%= task.status %></th>
+        <th class="button"><%= task.deadline %></th>
+        <th class="th_title"><%= task.name %></th>
+        <th class="th_detail"><%= task.detail %></th>
         <th colspan="3"> 
         <td><%= button_to 'Delete', task_path(task.id), method: :delete, data: {confirm: "Are you sure?"}, class: "button" %></td>
         <td><%= button_to 'Detail', task_path(task.id),  method: :get, class: "button" %></td>
         <td><%= button_to "Edit", edit_task_path(task.id),  method: :get, class: "button" %></td>
         </th></tr>              
     <% end %>
+      <% else %>
+        <%= '検索結果に当てはまるタスクはありません' %>
+    <% end %>
   </table>
 </div>
+
 
