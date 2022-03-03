@@ -28,4 +28,6 @@ class Task < ApplicationRecord
 
   # seach by name/word
   scope :search_sort, -> (search_word){ where('name LIKE ?', "%#{search_word}%") }
+  
+  scope :kaminari, -> (kaminari_page){ page(kaminari_page).per(10) }
 end
