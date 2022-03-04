@@ -19,7 +19,6 @@ class Task < ApplicationRecord
     低: 2
   }
 
-
   # sort by created_at
   scope :sorted, -> { order(created_at: :desc) }
   # sort by status
