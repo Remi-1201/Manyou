@@ -1,3 +1,17 @@
+GIT
+  remote: https://github.com/rspec/rspec-rails.git
+  revision: bfa37ce6d6ab80257c48e407042406007c7cb724
+  tag: v4.0.0.beta3
+  specs:
+    rspec-rails (4.0.0.beta3)
+      actionpack (>= 4.2)
+      activesupport (>= 4.2)
+      railties (>= 4.2)
+      rspec-core (~> 3.8)
+      rspec-expectations (~> 3.8)
+      rspec-mocks (~> 3.8)
+      rspec-support (~> 3.8)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -175,23 +189,15 @@ GEM
       ffi (~> 1.0)
     regexp_parser (2.2.1)
     rexml (3.2.5)
-    rspec-core (3.9.3)
-      rspec-support (~> 3.9.3)
-    rspec-expectations (3.9.4)
+    rspec-core (3.11.0)
+      rspec-support (~> 3.11.0)
+    rspec-expectations (3.11.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.9.0)
-    rspec-mocks (3.9.1)
+      rspec-support (~> 3.11.0)
+    rspec-mocks (3.11.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.9.0)
-    rspec-rails (3.9.1)
-      actionpack (>= 3.0)
-      activesupport (>= 3.0)
-      railties (>= 3.0)
-      rspec-core (~> 3.9.0)
-      rspec-expectations (~> 3.9.0)
-      rspec-mocks (~> 3.9.0)
-      rspec-support (~> 3.9.0)
-    rspec-support (3.9.4)
+      rspec-support (~> 3.11.0)
+    rspec-support (3.11.0)
     rubyzip (2.3.2)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
@@ -207,6 +213,7 @@ GEM
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
+    semantic_range (3.0.0)
     spring (2.1.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -235,10 +242,11 @@ GEM
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
       selenium-webdriver (~> 4.0)
-    webpacker (4.3.0)
-      activesupport (>= 4.2)
+    webpacker (5.4.3)
+      activesupport (>= 5.2)
       rack-proxy (>= 0.6.1)
-      railties (>= 4.2)
+      railties (>= 5.2)
+      semantic_range (>= 2.3.0)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -264,7 +272,7 @@ DEPENDENCIES
   rails (= 6.0.3)
   rails-i18n
   rexml
-  rspec-rails
+  rspec-rails!
   sass-rails (>= 6)
   selenium-webdriver
   spring
@@ -273,7 +281,7 @@ DEPENDENCIES
   tzinfo-data
   web-console (>= 3.3.0)
   webdrivers
-  webpacker (~> 4.0)
+  webpacker (~> 5.0)
 
 RUBY VERSION
    ruby 3.0.1p64
