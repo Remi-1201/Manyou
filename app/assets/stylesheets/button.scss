@@ -16,6 +16,7 @@
   background-color: white;  
   color: #34A853;
   border: 0.5px solid #34A853;
+  text-decoration: none;
 } 
 
 .button{
@@ -45,7 +46,7 @@
   margin: 7px auto;
   background: #34A853; 
   border-radius: 0.25rem;
-  border: 1px solid #34A853;
+  border: 1px solid ;
   color: white;
   font-size: 1rem;
   line-height: 30px;
@@ -58,4 +59,26 @@
   color: white;
   border: 1px solid #EA4335;
   text-decoration: none; 
+} 
+
+.button_signup{
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  margin: 20px 10px;
+  background: transparent; 
+  border-radius: 0.25rem;
+  border: 0.5px solid transparent;
+  color: #34A853;
+  font-size: 1rem;
+  font-weight: bolder;
+  line-height: 20px;
+  text-align: center;
+  padding: 0.5rem 0.5rem;
+}
+.button_signup:hover {
+  background-color: #34A853;  
+  color: white;
+  border: 0.5px solid #34A853;
+  text-decoration: none;
 } 

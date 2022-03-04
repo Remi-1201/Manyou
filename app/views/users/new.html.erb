@@ -1,0 +1,16 @@
+<h1>Sign up</h1>
+<%= render 'form', user: @user %>
+<%= form_with(model: @user, local: true) do |f| %>
+<p><%= f.label :name %></p>
+<p><%= f.text_field :name %></p>
+<p><%= f.label :email %></p>
+<p><%= f.email_field :email %></p>
+<p><%= f.label :password %></p>
+<p><%= f.password_field :password %></p>
+<p><%= f.label :password_confirmation %></p>
+<p><%= f.password_field :password_confirmation %></p><br>
+<p><%= f.submit "Create my account" %></p>
+<% end %>
+<%= link_to 'Back', root_path ,class:"button_link" %> 
+<br><br><br>
+

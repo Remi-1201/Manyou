@@ -42,7 +42,7 @@
         <th class="status"><%= task.status %></th>
         <th class="button"><%= task.deadline %></th>
         <th class="task_row"><%= task.name %></th>
-        <th class="th_detail"><%= task.detail %></th>
+        <th class="task_detail"><%= task.detail %></th>
         <th colspan="3"> 
         <td><%= button_to 'Delete', task_path(task.id), method: :delete, data: {confirm: "Are you sure?"}, class: "button" %></td>
         <td><%= button_to 'Detail', task_path(task.id),  method: :get, class: "button" %></td>
