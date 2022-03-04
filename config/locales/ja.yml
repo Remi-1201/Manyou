@@ -74,7 +74,7 @@ ja:
     - :year
     - :month
     - :day
-  daytime:
+  datetime:
     distance_in_words:
       about_x_hours:
         one: 約1時間
@@ -220,7 +220,7 @@ ja:
       short: "%m/%d %H:%M"
     pm: 午後
   view:
-    name: 名前
+    task_name: タスク名
     content: 内容
     detail: 詳細
     edit: 編集
@@ -233,12 +233,16 @@ ja:
     destroy?: 本当に削除してしまってもよろしいですか？
     task_registration: タスク登録
     have_error: 件のエラーがあります。
-    expired_at: 終了期限
-    expired_sort: 終了期限でソートする
+    deadline: 終了期限
+    deadline_sort: 終了期限でソートする
     status: ステータス
     task_search: 検索
     priority: 優先度
     priority_sort: 優先度でソートする
-    manyou: 万葉課題
-    rabel: ラベル
-    maintenance: 未実装
+  enums:
+    task:
+      priority:
+        not_entered: 未入力
+        high: 高
+        medium: 中
+        low: 低
