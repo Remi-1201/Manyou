@@ -20,7 +20,7 @@
 
   <div class="search_form">
     <%= form_with(url: search_tasks_path, method: :get, local: true) do %>      
-      <%= select_tag :search_status, options_for_select([['未着手'],['進行中'],['完了']]),
+      <%= select_tag :search_status, options_for_select([['未着手'],['着手中'],['完了']]),
         { class: 'search_select', prompt: 'ステータス' } %>
       <%= text_field_tag :search_name %>
       <%= submit_tag '検索' %>
