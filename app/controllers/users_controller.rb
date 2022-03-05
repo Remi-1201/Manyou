@@ -9,8 +9,8 @@ class UsersController < ApplicationController
   def correct_user?
     @user = User.find_by(id: params[:id])
     if current_user.id != @user.id
-      flash[:danger] = "権限がありません"
-      redirect_to user_path(current_user.id)
+      flash[:danger] = "他のユーザーのページにアクセスする権限がありません"
+      redirect_to root_path
     end
   end
 
