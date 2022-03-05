@@ -1,0 +1,22 @@
+<br>
+<div class="container">
+  <%= link_to 'Make new user', new_admin_user_path, class:"button_link" %><br><br>
+  <div class="users">
+    <table>
+      <% @users.each do |user| %>
+        <tr>
+          <td class = "user_all"><%= link_to user.name, user_path(user.id) %></td>
+          <td class = "task_count">タスク数:<%= user.tasks.count %></td>
+          <td>
+          <% if current_user.id == user.id %>
+            <%= link_to 'Edit | Destroy', edit_admin_user_path(user.id) %>
+          <% else %>
+            &nbsp;
+          <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+<br><br>
