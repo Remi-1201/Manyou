@@ -5,6 +5,8 @@
 <div class="table_frame">
   <table>
     <tr>
+      <th class="th_label">User</th>
+      <th class="th_label">Date </th>
       <th class="th_label">Priority</th>
       <th class="th_label">Status</th>
       <th class="th_label">Deadline</th>
@@ -12,16 +14,19 @@
       <th class="th_label">Detail</th>
     </tr>       
     <tr>
-          <th class="button"><%= @task.priority%></th>
-          <th class="status"><%= @task.status%></th>
-          <th class="button"><%= @task.deadline%></th>
-          <th class="th_title"><%= @task.name%></th>
-          <th class="th_detail"><%= @task.detail%></th>
-          <th colspan="3"> 
-          <td><%= button_to 'Delete', task_path(@task.id), method: :delete, data: {confirm: "Are you sure?"}, class: "button" %></td>
-          <td><%= button_to 'Detail', task_path(@task.id),  method: :get, class: "button" %></td>
-          <td><%= button_to "Edit", edit_task_path(@task.id),  method: :get, class: "button" %></td>
-          </th></tr>              
+      <th class="user"><%= task.user.name%></th>
+      <th class="created_at"><%= task.created_at.to_s(:datetime)%></th>
+      <th class="button"><%= @task.priority%></th>
+      <th class="status"><%= @task.status%></th>
+      <th class="button"><%= @task.deadline%></th>
+      <th class="th_title"><%= @task.name%></th>
+      <th class="th_detail"><%= @task.detail%></th>
+      <th colspan="3"> 
+      <td><%= button_to 'Delete', task_path(@task.id), method: :delete, data: {confirm: "Are you sure?"}, class: "button" %></td>
+      <td><%= button_to 'Detail', task_path(@task.id),  method: :get, class: "button" %></td>
+      <td><%= button_to "Edit", edit_task_path(@task.id),  method: :get, class: "button" %></td>
+      </th>
+    </tr>              
   </table>
 </div>
 <br>

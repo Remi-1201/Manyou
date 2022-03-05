@@ -10,7 +10,8 @@
 <div class="table_frame">
   <table>
     <tr>
-      <th class="th_label">Created at</th>
+      <th class="th_label">User</th>
+      <th class="th_label">Date </th>
       <th class="th_label">Priority</th>
       <th class="th_label">Status</th>
       <th class="th_label">Deadline</th>
@@ -37,6 +38,7 @@
   <tr>
     <% if @tasks.present? %>
       <% @tasks.each do |task| %>
+        <th class="user"><%= task.user.name%></th>
         <th class="created_at"><%= task.created_at.to_s(:datetime)%></th>
         <th class="button"><%= task.priority%></th>
         <th class="status"><%= task.status %></th>

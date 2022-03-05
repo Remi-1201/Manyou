@@ -34,6 +34,8 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    @tasks = Task.all
+    @tasks = @tasks.page(params[:page])
   end
 
   def update

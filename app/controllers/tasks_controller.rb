@@ -12,6 +12,7 @@ class TasksController < ApplicationController
   def index
     @task = Task.new
     @tasks = Task.all.order(created_at: :desc).kaminari(params[:page])
+    @users = User.all
   end
 
   def new
@@ -65,6 +66,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.user_id = current_user.id
       if @task.save
         redirect_to tasks_path, notice: "Task was successfully created."
       else
