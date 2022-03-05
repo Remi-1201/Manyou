@@ -29,11 +29,10 @@
               <th colspan="3"> 
               <td><%= button_to 'Delete', task_path(task.id), method: :delete, data: {confirm: "Are you sure?"}, class: "button" %></td>
               <td><%= button_to 'Detail', task_path(task.id),  method: :get, class: "button" %></td>
-              <td><%= button_to "Edit", edit_task_path(task.id),  method: :get, class: "button" %></td> </th>            
+              <td><%= button_to "Edit", edit_task_path(task.id),  method: :get, class: "button" %></td> </th></tr>            
              <% end %>
-            <% end %>
-        <% end %>
-    </tr>
+          <% end %>
+        <% end %>    
   </table>
 
   <% if @tasks.present? %>
