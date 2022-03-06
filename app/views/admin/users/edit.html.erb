@@ -1,0 +1,36 @@
+<h1>管理者用　ユーザー編集画面</h1>
+
+<%= form_with(model: @user, url: admin_user_path(@user.id),  local: true) do |form| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>            
+        <ul>
+          <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+          <% end %>
+        </ul>
+    </div>
+  <% end %>
+  <br><%= form.label :name, '名前' %>
+  <br><%= form.text_field :name %>
+
+  <br><%= form.label :email, 'メールアドレス' %>
+  <br><%= form.text_field :email %>
+
+  <br><%= form.label :password, 'パスワード' %>
+  <br><%= form.password_field :password %>
+
+  <br><%= form.label :password_confirmation, 'パスワード確認' %>
+  <br><%= form.password_field :password_confirmation %>        
+
+  <br><%= form.label :管理者権限 %>
+  <br><%= form.select :admin, [["管理者","true"],["一般","false"]] %>                  
+
+  <br><br><%= form.submit %>            
+
+<% end %>
+<br>
+<%= link_to 'Show', @user, class:"button_link" %> 
+<br>
+<%= link_to 'Back', admin_users_path, class:"button_link" %>
+<br><br>

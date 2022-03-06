@@ -1,10 +1,10 @@
 class Admin::UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :update, :destroy]
-  # before_action :not_logged_in
-  before_action :forget_user, only: [:edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit,:update, :destroy]
+  before_action :admin_user
 
   def index
     @users = User.all.includes(:tasks)
+    @users = User.all.page(params[:page]).per(10)
   end
 
   def new
@@ -14,7 +14,7 @@ class Admin::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to user_path(@user.id)
+      redirect_to admin_users_path, notice: "#{@user.name}さんのアカウントを作成しました"
     else
       render :new
     end
@@ -26,9 +26,9 @@ class Admin::UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to user_path(@user.id), notice: 'ユーザー情報を変更しました'
+      redirect_to admin_users_path, notice: "#{@user.name}さんのデータを更新しました"
     else
-      render :edit
+      render :new
     end
   end
 
@@ -47,9 +47,10 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def forget_user
-    if current_user.id != params[:id]
-      redirect_to admin_users_path
+  def admin_user
+    unless current_user.admin?
+      redirect_to tasks_path
+      flash[:notice] = '管理者の権限が必要です！'
     end
   end
 end

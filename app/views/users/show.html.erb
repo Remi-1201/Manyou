@@ -17,7 +17,7 @@
     </tr>       
     <tr>
       <% @tasks.each do |task| %>
-          <% if task.user_id == current_user.id %>
+          <% if task.user_id == @user.id %>
             <% if task.present? %>
               <th class="user"><%= task.user.name%></th>
               <th class="created_at"><%= task.created_at.to_s(:datetime)%></th>

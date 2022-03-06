@@ -14,8 +14,8 @@
       <th class="th_label">Detail</th>
     </tr>       
     <tr>
-      <th class="user"><%= task.user.name%></th>
-      <th class="created_at"><%= task.created_at.to_s(:datetime)%></th>
+      <th class="user"><%= @task.user.name%></th>
+      <th class="created_at"><%= @task.created_at.to_s(:datetime)%></th>
       <th class="button"><%= @task.priority%></th>
       <th class="status"><%= @task.status%></th>
       <th class="button"><%= @task.deadline%></th>

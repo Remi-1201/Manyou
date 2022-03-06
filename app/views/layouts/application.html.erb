@@ -19,14 +19,26 @@
           <div class="b-right">
             <li class="right">
               <%= button_to "Home", root_path, method: :get, class: 'button_header' %>
-            </li>
+            </li>            
             <% if logged_in? %>
-              <li class="right">
-                <%= link_to "Profile", user_path(current_user.id), class: 'button_header' %>
-              </li>
-              <li class="right">
-                <%= button_to "Logout", session_path(current_user.id), method: :delete,class: 'button_header' %>
-              </li>
+              <% if admin? %>
+                <li class="right">
+                  <%= link_to "Admin", admin_users_path, class: 'button_header' %>
+                </li>
+                <li class="right">
+                  <%= link_to "Profile", user_path(current_user.id), class: 'button_header' %>
+                </li>
+                <li class="right">
+                  <%= button_to "Logout", session_path(current_user.id), method: :delete,class: 'button_header' %>
+                </li>
+              <% else %>
+                <li class="right">
+                  <%= link_to "Profile", user_path(current_user.id), class: 'button_header' %>
+                </li>
+                <li class="right">
+                  <%= button_to "Logout", session_path(current_user.id), method: :delete,class: 'button_header' %>
+                </li>
+              <% end %>
             <% else %>
               <li class="right">
                 <%= link_to "Sign up", new_user_path,class: 'button_header'%>
