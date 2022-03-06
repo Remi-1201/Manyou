@@ -21,12 +21,13 @@
   <br><%= form.password_field :password %>
 
   <br><%= form.label :password_confirmation, 'パスワード確認' %>
-  <br><%= form.password_field :password_confirmation %>        
+  <br><%= form.password_field :password_confirmation %><br>        
 
   <br><%= form.label :管理者権限 %>
-  <br><%= form.select :admin, [["管理者","true"],["一般","false"]] %>                  
+      <%= form.hidden_field :admin, value: false %>                  
+  <br><%= form.check_box :admin, {}, true, false %>                  
 
-  <br><br><%= form.submit %>            
+  <br><%= form.submit %>            
 
 <% end %>
 <br>
