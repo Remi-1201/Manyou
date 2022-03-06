@@ -6,5 +6,4 @@ class User < ApplicationRecord
   before_validation { email.downcase! }
   validates :name,  presence: true, length: { maximum: 120 }
   validates :email, presence: true, length: { maximum: 250 },format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }, uniqueness: true
-  validates :password_digest, presence: true
 end

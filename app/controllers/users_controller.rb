@@ -1,9 +1,18 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
-  before_action :admin_user
+  skip_before_action :login_required, only: [:new, :create], raise: false
+  before_action :correct_user?, only: %i[ show ]
 
   def index
     @users = User.all
+  end
+
+  def correct_user?
+    @user = User.find_by(id: params[:id])
+    if current_user.id != @user.id
+      flash[:danger] = "権限がありません"
+      redirect_to user_path(current_user.id)
+    end
   end
 
   def new
@@ -57,12 +66,5 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :password_digest, :password, :password_confirmation, :email)
-  end
-
-  def admin_user
-    unless current_user.admin?
-    redirect_to(tasks_path) 
-    flash[:danger] = '管理者の権限が必要です！'
-    end
-  end
+  end  
 end

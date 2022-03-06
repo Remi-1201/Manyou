@@ -1,5 +1,10 @@
 <h1><%= @user.name %>のページ</h1>
-<p id="notice"><%= notice %></p>
+  <div class="notifications">
+    <div class="notice">
+      <p id="notice"><%= notice %></p>
+    </div>
+  </div>
+  <div class="danger"><%= flash[:danger] %></div>
 <%= button_to "Edit my account", edit_user_path, method: :get, class:"button_signup" %>
 <p>メールアドレス: <%= @user.email %></p>
 <%= button_to "Make new task", new_task_path, method: :get, class:"button_link" %>

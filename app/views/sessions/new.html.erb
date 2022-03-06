@@ -1,4 +1,10 @@
 <h1>Log in</h1>
+  <div class="notifications">
+    <div class="notice">
+      <p id="notice"><%= notice %></p>
+    </div>
+  </div>
+  <div class="danger"><%= flash[:danger] %></div>
 <br>
 <%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
 

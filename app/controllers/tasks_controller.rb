@@ -11,6 +11,7 @@ class TasksController < ApplicationController
 
   def index
     @task = Task.new
+    @tasks = Task.where(user_id: current_user.id).includes(:user)
     @tasks = Task.all.order(created_at: :desc).kaminari(params[:page])
     @users = User.all
   end
