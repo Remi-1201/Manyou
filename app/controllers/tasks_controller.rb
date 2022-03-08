@@ -14,17 +14,20 @@ class TasksController < ApplicationController
     @tasks = Task.where(user_id: current_user.id).includes(:user)
     @tasks = Task.all.order(created_at: :desc).kaminari(params[:page])
     @users = User.all
+    @labels = Label.where(user_id: nil).or(Label.where(user_id: current_user.id))
   end
 
   def new
     if params[:back]
-      @task= Task.new(task_params)
+      @task = Task.new(task_params)
     else
-      @task= Task.new
-    end  
+      @task = Task.new
+      @labels = Label.where(user_id: 9).or(Label.where(user_id: current_user))
+    end
   end
 
   def edit
+    @labels = Label.where(user_id: 9).or(Label.where(user_id: current_user))
   end
 
   def sort
@@ -77,7 +80,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to tasks_path, notice: "Blog was successfully updated."
+      redirect_to tasks_path, notice: "Task was successfully updated."
     else
       render :edit
     end
@@ -90,6 +93,7 @@ class TasksController < ApplicationController
 
   def show
     @task= Task.find(params[:id])
+    @labels = Label.where(user_id: 9).or(Label.where(user_id: current_user))
   end
   
   def destroy
@@ -105,7 +109,8 @@ class TasksController < ApplicationController
       :detail, 
       :deadline, 
       :status, 
-      :priority
+      :priority,
+      label_ids: []
     )
   end
 

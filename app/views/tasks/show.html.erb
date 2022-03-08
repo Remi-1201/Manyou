@@ -5,6 +5,7 @@
 <div class="table_frame">
   <table>
     <tr>
+      <th class="th_label">Label</th>
       <th class="th_label">User</th>
       <th class="th_label">Date </th>
       <th class="th_label">Priority</th>
@@ -14,6 +15,9 @@
       <th class="th_label">Detail</th>
     </tr>       
     <tr>
+      <% @task.labels.each do |label| %>
+        <th class="label"><%= label.name %></th>
+      <% end %>
       <th class="user"><%= @task.user.name%></th>
       <th class="created_at"><%= @task.created_at.to_s(:datetime)%></th>
       <th class="button"><%= @task.priority%></th>
