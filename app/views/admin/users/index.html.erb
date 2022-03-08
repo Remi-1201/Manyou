@@ -18,7 +18,10 @@
             <%= link_to user.name, user_path(user.id) %>
           </th>
           <th class = "task_count">
-            タスク数:<%= user.tasks.count %>
+            タスク数:&nbsp;<%= user.tasks.count %>
+          </th>
+          <th class = "role">
+            管理権:&nbsp;<%= user.admin%>
           </th>
           <th colspan="2", class = "user_option">
             <td><%= button_to 'Edit', edit_admin_user_path(user.id), method: :get, class:"button" %></td>

@@ -24,6 +24,10 @@
   <br><%= form.label :password_confirmation, 'パスワード確認' %>
   <br><%= form.password_field :password_confirmation %>
 
+  <br><%= form.label :管理者権限 %>
+  <%= form.hidden_field :admin, value: false %>                  
+  <br><%= form.check_box :admin, {}, true, false %>        
+
   <br><br><%= form.submit %>
 <% end %>
 
