@@ -1,17 +1,19 @@
 class TasksController < ApplicationController
   before_action :set_task, only:  %i[ show edit update destroy ]
-  # before_action :authenticate_user
+  before_action :authenticate_user
 
-  # def authenticate_user
-  #   @current_user = User.find_by(id: session[:user_id])
-  #   if @current_user.nil?
-  #     redirect_to new_session_path
-  #   end
-  # end
+  def authenticate_user
+    @current_user = User.find_by(id: session[:user_id])
+    if @current_user.nil?
+      redirect_to new_session_path
+    end
+  end
 
   def index
     @task = Task.new
+    @tasks = Task.where(user_id: current_user.id).includes(:user)
     @tasks = Task.all.order(created_at: :desc).kaminari(params[:page])
+    @users = User.all
   end
 
   def new
@@ -65,6 +67,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.user_id = current_user.id
       if @task.save
         redirect_to tasks_path, notice: "Task was successfully created."
       else

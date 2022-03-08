@@ -1,0 +1,34 @@
+<h1>管理者用　新規ユーザー登録</h1>
+
+<%= form_with(model: @user, url: admin_users_path,  local: true) do |form| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <br><%= form.label :name, '名前' %>
+  <br><%= form.text_field :name %>
+
+  <br><%= form.label :email, 'メールアドレス' %>
+  <br><%= form.text_field :email %>
+
+  <br><%= form.label :password, 'パスワード' %>
+  <br><%= form.password_field :password %>
+
+  <br><%= form.label :password_confirmation, 'パスワード確認' %>
+  <br><%= form.password_field :password_confirmation %>
+
+  <br><%= form.label :管理者権限 %>
+  <%= form.hidden_field :admin, value: false %>                  
+  <br><%= form.check_box :admin, {}, true, false %>        
+
+  <br><br><%= form.submit %>
+<% end %>
+
+<br><%= link_to 'Back', admin_users_path, class:"button_link" %>

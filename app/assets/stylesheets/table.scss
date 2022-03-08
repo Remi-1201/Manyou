@@ -14,7 +14,6 @@ table {
   border: 0px;
   max-width: 100%;
   text-align: center;
-  font-size: medium;
 }
 
 .th_label{
@@ -22,11 +21,24 @@ table {
 }
 
 .th_title {
-  font-weight: medium;
-  width: 100px;
-}
-
-.th_detail {
   font-weight: lighter;
   width: 100px;
+  margin: 0 10px;
+}
+
+.task_row {
+  font-weight: lighter;
+  width: 100px;
+  margin: 0 10px;
+}
+
+.task_detail {
+  font-weight: lighter;
+  width: 100px;
+  margin: 0 10px;
+}
+
+.user_email{
+  text-align: left;
+  padding-left: 30px;
 }

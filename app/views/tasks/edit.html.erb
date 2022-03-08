@@ -1,5 +1,7 @@
 <h1>Edit my task</h1>
 <br>
+<th class="user">Made by <%= @task.user.name%></th>
+<br><br>
 <%= link_to 'Back', tasks_path, class: "button_link"  %>
 <br>
 <%= render 'form', task: @task %>
