@@ -27,14 +27,17 @@ class Admin::UsersController < ApplicationController
   def update
     if @user.update(user_params)
       redirect_to admin_users_path, notice: "#{@user.name}さんのデータを更新しました"
-    else
-      render :new
+    elsif @user.errors.any? 
+      render :edit, notice: "管理権を外せません。最低一人の管理者が必要です"
     end
   end
 
   def destroy
-    @user.destroy
+    if @user.destroy
     redirect_to admin_users_path, notice: "#{@user.name}さんのデータを削除しました"
+    elsif @user.errors.any? 
+      redirect_to admin_users_path, notice: "削除できません。最低一人の管理者が必要です"
+    end
   end
 
   private
