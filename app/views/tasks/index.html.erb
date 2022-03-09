@@ -44,13 +44,14 @@
   <% end %> </div> 
   <br><br>
 
-  <tr>
+  <tr >
     <% if @tasks.present? %>
       <% @tasks.each do |task| %>
         <% if task.user_id == current_user.id %>
-          <% task.labels.each do |label| %>
-            <th class="label"><%= label.name %></th>
-          <% end %>
+            <th class="label">
+             <% task.labels.each do |label| %>
+              <th class="label"><%= label.name %>
+            <% end %> 
             <th class="user"><%= task.user.name%></th>
             <th class="created_at"><%= task.created_at.to_s(:datetime)%></th>
             <th class="button"><%= task.priority%></th>
@@ -63,7 +64,7 @@
               <td><%= button_to 'Detail', task_path(task.id),  method: :get, class: "button" %></td>
               <td><%= button_to "Edit", edit_task_path(task.id),  method: :get, class: "button" %></td> 
             </th></tr>  
-        <% end %> 
+        <% end %>
       <% end %>
     <% else %>
       <%= '検索結果に該当するタスクはありません' %>

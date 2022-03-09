@@ -1,8 +1,14 @@
 .label_list{
-  width: 300px;
+  width: 500px;
   display: inline-flex;
   justify-content: space-between;
   text-align: center;
   flex-wrap: wrap;
   margin: 0 auto;
+}
+.label{
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: column nowrap;
+  align-items: flex-start;
 }

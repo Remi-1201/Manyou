@@ -25,9 +25,10 @@
       <% @tasks.each do |task| %>
           <% if task.user_id == @user.id %>
             <% if task.present? %>
-              <% task.labels.each do |label| %>
-                <th class="label"><%= label.name %></th>
-              <% end %>
+                <th class="label">
+                  <% task.labels.each do |label| %>
+                  <th class="label"><%= label.name %>
+                <% end %> </th>                 
                 <th class="user"><%= task.user.name%></th>
                 <th class="created_at"><%= task.created_at.to_s(:datetime)%></th>
                 <th class="button"><%= task.priority%></th>
@@ -41,7 +42,7 @@
                 <td><%= button_to "Edit", edit_task_path(task.id),  method: :get, class: "button" %></td> </th></tr>            
              <% end %>
           <% end %>
-        <% end %>    
+        <% end %>
   </table>
 
   <% if @tasks.present? %>
