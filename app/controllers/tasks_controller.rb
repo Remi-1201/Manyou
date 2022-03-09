@@ -15,6 +15,7 @@ class TasksController < ApplicationController
     @tasks = Task.all.order(created_at: :desc).kaminari(params[:page])
     @users = User.all
     @labels = Label.where(user_id: nil).or(Label.where(user_id: current_user.id))
+    @tasks = @tasks.joins(:labels).where(labels: { id: params[:label_id] }) if params[:label_id].present?
   end
 
   def new

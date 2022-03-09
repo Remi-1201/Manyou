@@ -28,16 +28,21 @@
       <%= select_tag :search_status, options_for_select([['未着手'],['着手中'],['完了']]),
         { class: 'search_select', prompt: 'ステータス' } %>
       <%= text_field_tag :search_name %>
-      <%= submit_tag '検索' %>
+      <%= submit_tag 'タスク検索' %>
     <% end %>
   </div><br>
 
-  <div class="sort">
+  <div class="sort_search">
     <%= form_with(url: sort_tasks_path, local: true) do |f| %>
       <%= select_tag :sort, options_for_select([["Sort by created time","created_at"],["Sort by deadline","deadline"],["Sort by priority","priority"]]), { class: 'sort_select' } %>
-      <%= submit_tag "Sort" %>
-    <% end %>
-  </div><br>
+      <%= submit_tag "ソート" %>
+    <% end %>  
+  
+  <%= form_with url: tasks_path, method: :get, local: true do |form| %>
+    <%= form.select("label_id", Label.pluck(:name, :id), { include_blank: true }) %>
+    <%= form.submit 'ラベル検索', name: nil %>
+  <% end %> </div> 
+  <br><br>
 
   <tr>
     <% if @tasks.present? %>
