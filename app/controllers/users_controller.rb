@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+    @labels = Label.where(user_id: nil).or(Label.where(user_id: current_user.id))
   end
 
   def correct_user?
@@ -42,6 +43,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @tasks = Task.all
     @tasks = @tasks.page(params[:page])
+    @labels = Label.where(user_id: nil).or(Label.where(user_id: current_user.id))
   end
 
   def update

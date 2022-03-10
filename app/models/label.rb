@@ -1,4 +1,4 @@
 class Label < ApplicationRecord
+  belongs_to :user, optional: true
   has_many :labelings, dependent: :destroy
-  belongs_to :user
 end
