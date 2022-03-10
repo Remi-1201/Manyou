@@ -10,21 +10,16 @@ class TasksController < ApplicationController
   end
 
   def index
-    @task = Task.new
-    @tasks = Task.where(user_id: current_user.id).includes(:user)
-    @tasks = Task.all.order(created_at: :desc).kaminari(params[:page])
-    @users = User.all
+    @tasks = current_user.tasks.sorted.kaminari(params[:page])
     @labels = Label.where(user_id: nil).or(Label.where(user_id: current_user.id))
     @tasks = @tasks.joins(:labels).where(labels: { id: params[:label_id] }) if params[:label_id].present?
+    @tasks = @tasks.reorder(priority: :desc) if params[:priority_sort]
   end
 
   def new
-    if params[:back]
-      @task = Task.new(task_params)
-    else
-      @task = Task.new
-      @labels = Label.where(user_id: 9).or(Label.where(user_id: current_user))
-    end
+    @task = Task.new
+    @label = @task.labelings.build
+    @labels = Label.where(user_id: nil).or(Label.where(user_id: current_user.id))
   end
 
   def edit
@@ -32,40 +27,27 @@ class TasksController < ApplicationController
   end
 
   def sort
+    @tasks = searched
+    @search_name = session[:search]['name']  if session[:search].present?
+    @labels = Label.where(user_id: nil).or(Label.where(user_id: current_user.id))
     @tasks =
       if params[:sort] == 'created_at'
-        Task.all.order(created_at: :desc).kaminari(params[:page])
+        @tasks.sorted
       elsif params[:sort] == 'deadline'
-        Task.all.order(deadline: :asc).kaminari(params[:page])
+        @tasks.deadline_sorted
       elsif params[:sort] == 'priority'
-        Task.all.order(priority: :asc).kaminari(params[:page])
+        @tasks.priority_sort          
       end
-      render :index
+    session[:search] = nil
+    render :index
   end
 
   def search
-    @tasks =
-    if params[:search_name].blank? && params[:search_status].blank?
-      Task.all.sorted.kaminari(params[:page])
-    elsif params[:search_name].present?
-      if params[:search_status].present? && params[:search_priority].present?
-        Task.search_sort(params[:search_name]).status_sort(params[:search_status]).priority_sort(params[:search_priority]).sorted.kaminari(params[:page])
-      elsif params[:search_status].present? && params[:search_priority].blank?
-        Task.search_sort(params[:search_name]).status_sort(params[:search_status]).sorted.kaminari(params[:page])
-      elsif params[:search_status].blank? && params[:search_priority].present?
-        Task.search_sort(params[:search_name]).priority_sort(params[:search_priority]).sorted.kaminari(params[:page])
-      else
-        Task.search_sort(params[:search_name]).sorted.kaminari(params[:page])
-      end
-    elsif params[:search_status].present?
-      if params[:search_priority].present?
-        Task.status_sort(params[:search_status]).priority_sort(params[:search_priority]).sorted.kaminari(params[:page])
-      else
-        Task.status_sort(params[:search_status]).sorted.kaminari(params[:page])
-      end
-    elsif params[:search_priority].present?
-      Task.priority_sort(params[:search_priority]).sorted.kaminari(params[:page])
-    end
+    session[:search] = {'name' => params[:search_name], 'status' => params[:search_status], 'priority' => params[:search_priority], 'label' => params[:search_label]}
+    @labels = Label.where(user_id: nil).or(Label.where(user_id: current_user.id))
+    @tasks = searched
+    @tasks = @tasks.sorted
+    @search_name = session[:search]['name']
     render :index
   end
 
@@ -101,7 +83,7 @@ class TasksController < ApplicationController
     @task.destroy
     redirect_to tasks_url, notice:"Task was successfully destroyed."
     end
-  end
+  end  
 
   private  
   def task_params
@@ -118,3 +100,75 @@ class TasksController < ApplicationController
   def set_task
     @task = Task.find(params[:id])
   end
+
+  def correct_user
+    if current_user.id != @task.user_id
+      redirect_to tasks_path
+    end
+  end
+
+  def searched
+    if session[:search].present?
+      # all blank
+      if session[:search]['name'].blank? && session[:search]['status'].blank? && session[:search]['priority'].blank? && session[:search]['label'].blank?
+        Task.current_user_sort(current_user.id).kaminari(params[:page])
+      # name = present
+      elsif session[:search]['name'].present?
+        # status & priority & label = present 
+        if session[:search]['status'].present? && session[:search]['priority'].present? && session[:search]['label'].present?
+          Task.current_user_sort(current_user.id).search_sort(session[:search]['name']).status_sort(session[:search]['status']).priority_sort(session[:search]['priority']).label_sort(session[:search]['label']).kaminari(params[:page])
+        # status & priority  = present
+        elsif session[:search]['status'].present? && session[:search]['priority'].present?
+          Task.current_user_sort(current_user.id).search_sort(session[:search]['name']).status_sort(session[:search]['status']).priority_sort(session[:search]['priority']).kaminari(params[:page])
+        # status & label  = present
+        elsif session[:search]['status'].present? && session[:search]['label'].present? && session[:search]['priority'].blank?
+          Task.current_user_sort(current_user.id).search_sort(session[:search]['name']).status_sort(session[:search]['status']).label_sort(session[:search]['label']).kaminari(params[:page])
+        # priority & label  = present 
+        elsif session[:search]['priority'].present? && session[:search]['label'].present? && session[:search]['status'].blank?
+          Task.current_user_sort(current_user.id).search_sort(session[:search]['name']).priority_sort(session[:search]['priority']).label_sort(session[:search]['label']).kaminari(params[:page])
+        # status  = present
+        elsif session[:search]['status'].present? && session[:search]['priority'].blank? && session[:search]['label'].blank?
+          Task.current_user_sort(current_user.id).search_sort(session[:search]['name']).status_sort(session[:search]['status']).kaminari(params[:page])
+        #  priority = present 
+        elsif session[:search]['priority'].present? && session[:search]['status'].blank? && session[:search]['label'].blank?
+          Task.current_user_sort(current_user.id).search_sort(session[:search]['name']).priority_sort(session[:search]['priority']).kaminari(params[:page])
+        # label  = present 
+        elsif session[:search]['label'].present? && session[:search]['status'].blank? && session[:search]['priority'].blank?
+          Task.current_user_sort(current_user.id).search_sort(session[:search]['name']).label_sort(session[:search]['label']).kaminari(params[:page])
+        #  name  = present 
+        else
+          Task.current_user_sort(current_user.id).search_sort(session[:search]['name']).kaminari(params[:page])
+        end
+  
+      elsif session[:search]['status'].present?
+  
+        if session[:search]['priority'].present? && session[:search]['label'].present?
+          Task.current_user_sort(current_user.id).status_sort(session[:search]['status']).priority_sort(session[:search]['priority']).label_sort(session[:search]['label']).kaminari(params[:page])
+  
+        elsif session[:search]['priority'].present? && session[:search]['label'].blank?
+          Task.current_user_sort(current_user.id).status_sort(session[:search]['status']).priority_sort(session[:search]['priority']).kaminari(params[:page])
+  
+        elsif session[:search]['label'].present? && session[:search]['priority'].blank?
+          Task.current_user_sort(current_user.id).status_sort(session[:search]['status']).label_sort(session[:search]['label']).kaminari(params[:page])
+  
+        else
+          Task.current_user_sort(current_user.id).status_sort(session[:search]['status']).kaminari(params[:page])
+        end
+  
+      elsif session[:search]['priority'].present?
+  
+        if session[:search]['label'].present?
+          Task.current_user_sort(current_user.id).priority_sort(session[:search]['priority']).label_sort(session[:search]['label']).kaminari(params[:page])
+  
+        else
+          Task.current_user_sort(current_user.id).priority_sort(session[:search]['priority']).kaminari(params[:page])
+        end
+  
+      elsif session[:search]['label'].present?
+        Task.current_user_sort(current_user.id).label_sort(session[:search]['label']).kaminari(params[:page])
+      end
+    else
+      Task.current_user_sort(current_user.id).kaminari(params[:page])
+    end
+  end
+  
